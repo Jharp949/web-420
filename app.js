@@ -1,3 +1,12 @@
+/*
+============================================
+ Title:  app.js
+ Author: James Harper
+ Date:   26 August 2023
+ Description: Server configuration
+===========================================
+*/
+
 //Highlights potential problems within the code
 "use strict";
 
