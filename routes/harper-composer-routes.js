@@ -21,11 +21,11 @@ const Composer = require('../models/harper-composer');
  *     summary: returns an array of composers in JSON format.
  *     responses:
  *       '200':
- *         description: Array of composers.
+ *         description: Array of composer documents
  *       '500':
- *         description: Server Exception.
+ *         description: Server Exception
  *       '501':
- *         description: MongoDB Exception.
+ *         description: MongoDB Exception
  */
 router.get('/composers', async(req, res) => {
   try {
