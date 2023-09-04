@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection string
-const conn = 'mongodb+srv://web420_user:waduhek@bellevueuniversity.w2mknhu.mongodb.net/web420DB';
+const conn = 'mongodb+srv://web420_user:pl@ce@cluster0.sxzp2tj.mongodb.net/';
 
 // Connect to MongoDB
 mongoose
