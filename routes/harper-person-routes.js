@@ -2,7 +2,7 @@
  Title:  harper-person-routes.js
  Author: James Harper
  Date:   10 September 2023
- Description:
+ Description: Routes the person API
 */
 
 //Create variables to require express, router, and the person model

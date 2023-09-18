@@ -19,7 +19,8 @@ const swaggerJsdoc = require('swagger-jsdoc');
 
 //Require the composer and person API from the routes file
 const composerAPI = require('./routes/harper-composer-routes');
-const personAPI = require('./routes/harper-person-routes')
+const personAPI = require('./routes/harper-person-routes');
+const userAPI = require('./routes/harper-session-routes');
 
 //Create a variable for a MongoDB connection string
 const CONN = 'mongodb+srv://web420_user:s3cret@cluster0.sxzp2tj.mongodb.net/web420';
@@ -29,7 +30,7 @@ mongoose.connect(CONN).then(() => {
     console.log('Connection to MongoDB database was successful\n  If you see this message it means you were able to connect to your MongoDB Atlas cluster');
 }).catch(err => {
     console.log('MongoDB Error: ' + err.message);
-})
+});
 
 //Create an app variable set to the express library
 const app = express();
@@ -62,8 +63,7 @@ const openapiSpecification = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 //Use the composer and person APIs
-app.use('/api', composerAPI);
-app.use('/api', personAPI);
+app.use('/api', composerAPI, personAPI, userAPI);
 
 //Create a server using the PORT
 app.listen(PORT, () => {
