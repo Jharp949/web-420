@@ -13,7 +13,7 @@ const Schema = mongoose.Schema;
 let userSchema = new Schema({
     "userName": { type: String },
     "password": { type: String },
-    "emailAddress": { type: Array },
+    "emailAddress": { type: String }, //Used string because I could not get array to show
 });
 
 //Exports the module

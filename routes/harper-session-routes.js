@@ -36,7 +36,7 @@ const saltRounds = 10;
  *              password:
  *                 type: string
  *              emailAddress:
- *                 type: array
+ *                 type: string
  *     responses:
  *       '200':
  *         description: Registered user
@@ -48,47 +48,46 @@ const saltRounds = 10;
  *         description: MongoDB Exception
  */
 router.post("/signup", async (req, res) => {
-    try {
-        //Checks if username is already in the database
-      User.findOne({ userName: req.body.userName }, function (err, user) {
-        if (err) {
-          res.status(501).send({
-            message: "MongoDB Exception",
+  try {
+    User.findOne({ userName: req.body.userName }, function (err, user) {
+      if (err) {
+        res.status(501).send({
+          message: "MongoDB Exception",
+        });
+      } else {
+        //Create User if is does not already exist in the database. If is does exist, send 401 error
+        if (!user) {
+          //Hash encrypted password for bcrypt
+          let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+
+          const newRegisteredUser = {
+            userName: req.body.userName,
+            password: hashedPassword,
+            emailAddress: req.body.emailAddress
+          };
+          //Creates a new user with username, hashed password, and email
+          User.create(newRegisteredUser, function (err, registeredUser) {
+            if (err) {
+              res.status(501).send({
+                message: "MongoDB Exception",
+              });
+            } else {
+              res.json(registeredUser);
+            }
           });
         } else {
-          
-          if (!user) {
-            // Hash password with bcrypt
-            let hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
-  
-            const newUser = {
-              userName: req.body.userName,
-              password: hashedPassword,
-              emailAddress: req.body.emailAddress,
-            };
-            // Create new user with entered username, email, and hashed password
-            User.create(newUser, function (err, registered) {
-              if (err) {
-                res.status(501).send({
-                  message: "MongoDB Exception",
-                });
-              } else {
-                res.json(registered);
-              }
-            });
-          } else {
-            res.status(401).send({
-              message: "Username is already in use.",
-            });
-          }
+          res.status(401).send({
+            message: "Username is already in use.",
+          });
         }
-      });
-    } catch (e) {
-      res.status(500).send({
-        message: "Server Exception",
-      });
-    }
-  });
+      }
+    });
+  } catch (e) {
+    res.status(500).send({
+      message: "Server Exception",
+    });
+  }
+});
 
   /**
  * login
@@ -122,7 +121,7 @@ router.post("/signup", async (req, res) => {
  *       '501':
  *         description: MongoDB Exception
  */
-router.post("/login", async (req, res) => {
+  router.post("/login", async (req, res) => {
     try {
       User.findOne({ userName: req.body.userName }, function (err, user) {
         if (err) {
@@ -131,14 +130,20 @@ router.post("/login", async (req, res) => {
           });
         } else {
           if (user) {
-            let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);  
-            // If password matches, log them in
+
+            let passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+  
+            //Allows login if user password matches the database stored password
             if (passwordIsValid) {
               res.status(200).send({
                 message: "User logged in",
               });
+              //If user password and database password do not match, send error code 401
+            } else {
+              res.status(401).send({
+                message: "Invalid username and/or password",
+              });
             }
-            // If password/username doesn't match, send Error 401
           } else {
             res.status(401).send({
               message: `Invalid username and/or password`,
