@@ -21,6 +21,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const composerAPI = require('./routes/harper-composer-routes');
 const personAPI = require('./routes/harper-person-routes');
 const userAPI = require('./routes/harper-session-routes');
+const customerAPI = require('./routes/harper-node-shopper-routes');
 
 //Create a variable for a MongoDB connection string
 const CONN = 'mongodb+srv://web420_user:s3cret@cluster0.sxzp2tj.mongodb.net/web420';
