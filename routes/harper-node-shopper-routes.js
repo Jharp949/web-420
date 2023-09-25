@@ -50,7 +50,7 @@ router.post("/customers", async (req, res) => {
       const newCustomer = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        userName: req.body.userName
+        userName: req.body.userName,
       };
   
       await Customer.create(newCustomer, function (err, customer) {
