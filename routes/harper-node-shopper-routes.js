@@ -78,7 +78,7 @@ router.post("/customers", async (req, res) => {
  *       - Invoice
  *     name: createInvoiceByUserName
  *     description: API for creating an invoice
- *     summary: Creates an invoice based on aquired data from the user
+ *     summary: Creates an invoice based on acquired data from the user
  *     requestBody:
  *       description: Invoice information
  *       content:
@@ -122,12 +122,12 @@ router.post("/customers", async (req, res) => {
  *         description: MongoDB Exception
  */
 
-router.post("/customers/:userName/invoices", async (req, res) => {
+router.post('/customers/:userName/invoices', async (req, res) => {
     try {
       Customer.findOne({ userName: req.params.userName }, function (err, customer) {
         if (err) {
           res.status(501).send({
-            message: `MongoDB Exception: ${err}`,
+            message: `MongoDB Exception: ${err}`
           });
         } else {
           const newInvoice = {
@@ -135,7 +135,7 @@ router.post("/customers/:userName/invoices", async (req, res) => {
             tax: req.body.tax,
             dateCreated: req.body.dateCreated,
             dateShipped: req.body.dateShipped,
-            lineItems: req.body.lineItems,
+            lineItems: req.body.lineItems
           };
           customer.invoices.push(newInvoice);
           customer.save(function (err, updatedCustomer) {
