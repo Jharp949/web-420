@@ -45,35 +45,29 @@ const Customer = require('../models/harper-customer');
  *         description: MongoDB Exception
  */
 
-router.post('/customers', async(req, res) => {
+router.post("/customers", async (req, res) => {
     try {
-        const newCustomer = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            userName: req.body.userName,
-        };
-
-        //Await a response from the server
-        await Customer.create(newCustomer, function(err, customer) {
-            
-            //If MongoDB encounters an error
-            if (err) {
-                //Output the error message as a response to database error
-                res.status(501).send({
-                    message: `MongoDB Exception ${err}`
-                });
-            } else {
-                //Inputs customer into MongoDB
-                res.json(customer);
-            }
-        })
+      const newCustomer = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userName: req.body.userName,
+      };
+  
+      await Customer.create(newCustomer, function (err, customer) {
+        if (err) {
+          res.status(501).send({
+            message: `MongoDB Exception`,
+          });
+        } else {
+          res.json(customer);
+        }
+      });
     } catch (e) {
-        //Output the error message as a response to server error
-        res.status(500).send({
-            message: `Server Exception ${e}`
-        });
+      res.status(500).send({
+        message: `Server Exception`,
+      });
     }
-});
+  });
 
 /**
  * createInvoiceByUserName
