@@ -33,9 +33,9 @@ const Customer = require('../models/harper-customer');
  *               name:
  *                 type: String
  *               price:
- *                 type: Number
+ *                 type: String
  *               quantity:
- *                 type: Number
+ *                 type: String
  *     responses:
  *       '200':
  *         description: Customer added to MongoDB
