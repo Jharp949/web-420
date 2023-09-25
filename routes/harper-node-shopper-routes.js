@@ -192,7 +192,7 @@ router.get("/customers/:userName/invoices", async (req, res) => {
       Customer.findOne({ userName: req.params.userName }, function (err, customer) {
         if (err) {
           res.status(500).send({
-            message: `Server Exception`,
+            message: `Server Exception`
           });
         } else {
           res.status(200).send(customer.invoices);
@@ -200,7 +200,7 @@ router.get("/customers/:userName/invoices", async (req, res) => {
       });
     } catch (e) {
       res.status(501).send({
-        message: `MongoDB Exception`,
+        message: `MongoDB Exception`
       });
     }
   });
