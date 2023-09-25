@@ -33,9 +33,9 @@ const Customer = require('../models/harper-customer');
  *               name:
  *                 type: String
  *               price:
- *                 type: String
+ *                 type: Number
  *               quantity:
- *                 type: String
+ *                 type: Number
  *     responses:
  *       '200':
  *         description: Customer added to MongoDB
@@ -56,7 +56,7 @@ router.post("/customers", async (req, res) => {
       await Customer.create(newCustomer, function (err, customer) {
         if (err) {
           res.status(501).send({
-            message: `MongoDB Exception ${err}`,
+            message: `MongoDB Exception ${err}`
           });
         } else {
           res.json(customer);
@@ -64,7 +64,7 @@ router.post("/customers", async (req, res) => {
       });
     } catch (e) {
       res.status(500).send({
-        message: `Server Exception ${e}`,
+        message: `Server Exception ${e}`
       });
     }
   });
