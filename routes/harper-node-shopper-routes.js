@@ -52,11 +52,11 @@ router.post("/customers", async (req, res) => {
         lastName: req.body.lastName,
         userName: req.body.userName,
       };
-  
+
       await Customer.create(newCustomer, function (err, customer) {
         if (err) {
           res.status(501).send({
-            message: `MongoDB Exception`,
+            message: `MongoDB Exception ${err}`,
           });
         } else {
           res.json(customer);
@@ -64,7 +64,7 @@ router.post("/customers", async (req, res) => {
       });
     } catch (e) {
       res.status(500).send({
-        message: `Server Exception`,
+        message: `Server Exception ${e}`,
       });
     }
   });
@@ -198,5 +198,5 @@ router.get("/customers/:userName/invoices", async (req, res) => {
       });
     }
   });
-  
+
   module.exports = router;
