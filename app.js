@@ -64,7 +64,7 @@ const openapiSpecification = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 //Use the composer and person APIs
-app.use('/api', composerAPI, personAPI, userAPI);
+app.use('/api', composerAPI, personAPI, userAPI, customerAPI);
 
 //Create a server using the PORT
 app.listen(PORT, () => {
