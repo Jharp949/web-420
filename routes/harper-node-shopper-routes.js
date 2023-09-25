@@ -128,39 +128,39 @@ router.post('/customers', async(req, res) => {
  *         description: MongoDB Exception
  */
 
-router.post('/customers/:userName/invoices', async (req, res) => {
+router.post("/customers/:userName/invoices", async (req, res) => {
     try {
-        Customer.findOne({ userName: req.params.userName }, function (err, customer) {
+      Customer.findOne({ userName: req.params.userName }, function (err, customer) {
+        if (err) {
+          res.status(501).send({
+            message: `MongoDB Exception: ${err}`,
+          });
+        } else {
+          const newInvoice = {
+            subtotal: req.body.subtotal,
+            tax: req.body.tax,
+            dateCreated: req.body.dateCreated,
+            dateShipped: req.body.dateShipped,
+            lineItems: req.body.lineItems,
+          };
+          customer.invoices.push(newInvoice);
+          customer.save(function (err, updatedCustomer) {
             if (err) {
-                res.status(501).send({
-                    message: `MongoDB Exception: ${err}`
-                });
+              res.status(501).send({
+                message: `MongoDB Exception: ${err}`,
+              });
             } else {
-                const newInvoice = {
-                    subtotal: req.body.subtotal,
-                    tax: req.body.tax,
-                    dateCreated: req.body.dateCreated,
-                    dateShipped: req.body.dateShipped,
-                    lineItems: req.body.lineItems
-                };
-                customer.invoices.push(newInvoice);
-                customer.save(function (err, updatedCustomer) {
-                    if (err) {
-                        res.status(501).send({
-                            message: `MongoDB Exception: ${err}`
-                        });
-                    } else {
-                        res.json(updatedCustomer)
-                    }
-                });
-            } catch (e) {
-                res.status(500).send({
-                    message: `Server Exception: ${e}`
-                })
+              res.json(updatedCustomer);
             }
-        });
+          });
+        }
+      });
+    } catch (e) {
+      res.status(500).send({
+        message: `Server Exception: ${e}`,
+      });
     }
-});
+  });
 
 /**
  * findAllInvoicesByUserName
