@@ -78,7 +78,7 @@ router.post('/customers', async(req, res) => {
 /**
  * createInvoiceByUserName
  * @openapi
- * /api/customers/:username/invoices 
+ * /api/customers/{username}/invoices:
  *   post:
  *     tags:
  *       - Invoice
