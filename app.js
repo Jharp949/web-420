@@ -44,7 +44,7 @@ mongoose.connect(CONN, {
 const app = express();
 
 //Set the port to process.env.PORT || 3000
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 3000;
 
 //App configuration for JSON and urlencoded
 app.use(express.json());
