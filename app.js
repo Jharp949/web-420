@@ -28,7 +28,13 @@ const teamAPI = require('./routes/harper-team-routes');
 const CONN = 'mongodb+srv://web420_user:s3cret@cluster0.sxzp2tj.mongodb.net/web420';
 
 //Connect to MongoDB and output a message stating success for failure to do so
-mongoose.connect(CONN).then(() => {
+mongoose.connect(CONN, {
+    promiseLibrary: require("bluebird"),
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+})
+.then(() => {
+
     console.log('Connection to MongoDB database was successful');
 }).catch(err => {
     console.log('MongoDB Error: ' + err.message);
@@ -37,8 +43,8 @@ mongoose.connect(CONN).then(() => {
 //Create an app variable set to the express library
 const app = express();
 
-//Set the port to process.env.PORT || 10000
-const PORT = process.env.PORT || 10000;
+//Set the port to process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 //App configuration for JSON and urlencoded
 app.use(express.json());
