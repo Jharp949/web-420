@@ -17,8 +17,6 @@ const http = require('http');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
-require("dotenv").config();
-
 //Require the composer and person API from the routes file
 const composerAPI = require('./routes/harper-composer-routes');
 const personAPI = require('./routes/harper-person-routes');
