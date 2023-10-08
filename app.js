@@ -25,10 +25,10 @@ const customerAPI = require('./routes/harper-node-shopper-routes');
 const teamAPI = require('./routes/harper-team-routes');
 
 //Create a variable for a MongoDB connection string
-const conn = 'mongodb+srv://web420_user:s3cret@cluster0.sxzp2tj.mongodb.net/web420';
+const CONN = 'mongodb+srv://web420_user:s3cret@cluster0.sxzp2tj.mongodb.net/web420';
 
 //Connect to MongoDB and output a message stating success for failure to do so
-mongoose.connect(conn, {
+mongoose.connect(CONN, {
     promiseLibrary: require("bluebird"),
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -44,7 +44,7 @@ mongoose.connect(conn, {
 const app = express();
 
 //Set the port to process.env.PORT || 3000
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 //App configuration for JSON and urlencoded
 app.use(express.json());
@@ -74,6 +74,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 app.use('/api', composerAPI, personAPI, userAPI, customerAPI, teamAPI);
 
 //Create a server using the PORT
-app.listen(port, () => {
-    console.log('Application started and listening on PORT ' + port);
+app.listen(PORT, () => {
+    console.log('Application started and listening on PORT ' + PORT);
 });
